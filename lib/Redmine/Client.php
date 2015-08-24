@@ -55,6 +55,11 @@ class Client
     private $checkSslHost = false;
 
     /**
+     * @var int
+     */
+    private $sslVersion = 0;
+
+    /**
      *
      * Flag to determine authentication method
      *
@@ -374,7 +379,7 @@ class Client
         if (80 !== $this->port) {
             curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, $this->checkSslCertificate);
             curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, $this->checkSslHost);
-			curl_setopt($curl, CURLOPT_SSLVERSION, $this->sslVersion);
+            curl_setopt($curl, CURLOPT_SSLVERSION, $this->sslVersion);
         }
 
         $tmp = parse_url($this->url.$path);
