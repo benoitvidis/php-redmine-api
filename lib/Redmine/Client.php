@@ -235,6 +235,32 @@ class Client
     }
 
     /**
+     * Forces the SSL/TLS version to use.
+     * @see http://curl.haxx.se/libcurl/c/CURLOPT_SSLVERSION.html
+     *
+     * @param int $sslVersion
+     *
+     * @return Client
+     */
+    public function setSslVersion($sslVersion = 0)
+    {
+        $this->sslVersion = $sslVersion;
+
+        return $this;
+    }
+
+    /**
+     * Returns the SSL Version used.
+     *
+     * @return int
+     */
+    public function getSslVersion()
+    {
+        return $this->sslVersion;
+    }
+
+
+    /**
      * Turns on/off http auth
      * @param  bool   $use
      * @return Client
@@ -348,6 +374,7 @@ class Client
         if (80 !== $this->port) {
             curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, $this->checkSslCertificate);
             curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, $this->checkSslHost);
+			curl_setopt($curl, CURLOPT_SSLVERSION, $this->sslVersion);
         }
 
         $tmp = parse_url($this->url.$path);
